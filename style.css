@@ -1,0 +1,144 @@
+h6 {
+  font-weight: 400;
+}
+
+.container-sm {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 24px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+  font-family: Helvetica;
+  letter-spacing: 0.5px;
+  margin: 40px auto;
+  max-width: 800px;
+  min-width: 700px;
+  padding: 60px;
+}
+
+#current-location-button {
+  background-color: rgb(58, 129, 184);
+  border: 1px solid rgb(37, 88, 126);
+  border-radius: 8px;
+  box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.1);
+  color: #ffff;
+  display: inline-block;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  padding: 5px 15px;
+  transition: 150ms ease-in-out;
+}
+
+#current-location-button:hover {
+  background-color: rgb(37, 88, 126);
+  cursor: pointer;
+}
+
+.current-stats {
+  margin: 40px auto 0px;
+}
+
+.current-stats .emoji {
+  font-size: 70px;
+  line-height: 80px;
+  padding: 0px;
+}
+
+.current-stats .location {
+  padding: 0px;
+  text-align: right;
+}
+
+.current-stats .weather {
+  padding: 0px 0px 0px 30px;
+  text-align: left;
+}
+
+.current-stats .weather .hum-wind {
+  font-weight: 300;
+  font-size: 14px;
+  margin: 0px;
+}
+
+#current-temp {
+  display: inline;
+}
+
+.even {
+  background-color: rgba(150, 150, 150, 0.1);
+}
+
+.forecast-day {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.forecast-day-container {
+  padding: 0px;
+  margin: 40px auto 0px;
+}
+
+.forecast-day .day {
+  font-weight: 400px;
+  margin: 10px 0px 0px;
+}
+
+.forecast-day .emoji {
+  font-size: 32px;
+  margin: 10px 0px 0px;
+}
+
+.forecast-day .temp {
+  margin: 10px 0px;
+}
+
+.forecast-day .low {
+  font-weight: 600;
+}
+
+.search {
+  margin-top: 40px;
+}
+
+.search-button {
+  background-color: rgb(58, 129, 184);
+  border: 1px solid rgb(37, 88, 126);
+  border-radius: 8px;
+  box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.1);
+  color: #ffff;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  padding: 5px 15px;
+  transition: 150ms ease-in-out;
+}
+
+.search-button:hover {
+  background-color: rgb(37, 88, 126);
+  cursor: pointer;
+}
+
+.search-city {
+  border: 1px solid;
+  border-radius: 8px;
+  box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.1);
+  letter-spacing: 0.5px;
+  width: 300px;
+  padding: 5px 15px;
+  margin-right: 10px;
+}
+
+.temperature-scales {
+  font-size: 16px;
+}
+
+.temperature-scales #celsius-link {
+  font-weight: 600;
+}
+.temperature-scales .celsius,
+.temperature-scales .fahrenheit {
+  display: inline;
+  font-weight: 300;
+}
+
+.temperature-scales #celsius-link,
+.temperature-scales #fahrenheit-link {
+  color: rgb(58, 129, 184);
+  text-decoration: none;
+}
