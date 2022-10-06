@@ -117,6 +117,7 @@ function updateDisplays(response) {
   updateHumidity(response);
   updateTemperature(response);
   updateWind(response);
+  updateEmoji(response);
 }
 
 // Update city name
@@ -157,4 +158,13 @@ function updateWind(response) {
   let wind = Math.round((`${response.data.wind.speed}` * 3600) / 1000);
   let nowWind = document.querySelector("#wind");
   nowWind.innerHTML = wind;
+}
+
+// Update emoji
+function updateEmoji(response) {
+  let currentEmoji = document.querySelector("#current-emoji");
+  currentEmoji.setAttribute(
+    "src",
+    `weather-icons/${response.data.weather[0].main}.png`
+  );
 }
