@@ -66,6 +66,10 @@ h6 {
   display: inline;
 }
 
+#current-weather-desc {
+  text-transform: capitalize;
+}
+
 .even {
   background-color: rgba(150, 150, 150, 0.1);
 }

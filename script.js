@@ -128,7 +128,7 @@ function updateCity() {
 
 // Update description
 function updateDesc(response) {
-  let weatherDesc = `${response.data.weather[0].main}`;
+  let weatherDesc = `${response.data.weather[0].description}`;
   let nowWeatherDesc = document.querySelector("#current-weather-desc");
   nowWeatherDesc.innerHTML = weatherDesc;
 }
