@@ -14,7 +14,7 @@ h6 {
   padding: 60px;
 }
 
-#current-emoji {
+#current-icon {
   max-width: 64px;
 }
 
@@ -40,7 +40,7 @@ h6 {
   margin: 40px auto 0px;
 }
 
-.current-stats .emoji {
+.current-stats .icon {
   font-size: 70px;
   line-height: 60px;
   padding: 0px;
@@ -84,7 +84,7 @@ h6 {
   margin: 10px 0px 0px;
 }
 
-.forecast-day .emoji {
+.forecast-day .icon {
   font-size: 32px;
   margin: 10px 0px 0px;
 }

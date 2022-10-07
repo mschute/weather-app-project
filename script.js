@@ -117,7 +117,7 @@ function updateDisplays(response) {
   updateHumidity(response);
   updateTemperature(response);
   updateWind(response);
-  updateEmoji(response);
+  updateIcon(response);
 }
 
 // Update city name
@@ -160,10 +160,10 @@ function updateWind(response) {
   nowWind.innerHTML = wind;
 }
 
-// Update emoji
-function updateEmoji(response) {
-  let currentEmoji = document.querySelector("#current-emoji");
-  currentEmoji.setAttribute(
+// Update icon
+function updateIcon(response) {
+  let currentIcon = document.querySelector("#current-icon");
+  currentIcon.setAttribute(
     "src",
     `weather-icons/${response.data.weather[0].main}.png`
   );
