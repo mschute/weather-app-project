@@ -163,4 +163,5 @@ h6 {
 .temperature-scales #fahrenheit-link {
   color: rgb(58, 129, 184);
   text-decoration: none;
+  cursor: pointer;
 }
