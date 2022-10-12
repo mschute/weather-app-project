@@ -105,6 +105,12 @@ h6 {
   margin: 0px 320px;
 }
 
+#navigation-icon {
+  color: rgb(255, 255, 255);
+  width: 16px;
+  height: auto;
+}
+
 .search {
   margin-top: 40px;
 }
