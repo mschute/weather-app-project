@@ -123,8 +123,8 @@ function updateCity() {
 // Update description
 function updateDesc(response) {
   let weatherDesc = `${response.data.weather[0].description}`;
-  let nowWeatherDesc = document.querySelector("#current-weather-desc");
-  nowWeatherDesc.innerHTML = weatherDesc;
+  let currentWeatherDesc = document.querySelector("#current-weather-desc");
+  currentWeatherDesc.innerHTML = weatherDesc;
 }
 
 // Update geolocation name
@@ -136,17 +136,17 @@ function updateGeoName(response) {
 // Update humidity
 function updateHumidity(response) {
   let humidity = Math.round(`${response.data.main.humidity}`);
-  let nowHumidity = document.querySelector("#humidity");
-  nowHumidity.innerHTML = humidity;
+  let currentHumidity = document.querySelector("#humidity");
+  currentHumidity.innerHTML = humidity;
 }
 
 // Update temperature
 function updateTemperature(response) {
-  let nowTemp = document.querySelector("#current-temp");
+  let currentTemp = document.querySelector("#current-temp");
   rawCelsius = Math.round(`${response.data.main.temp}`);
 
   if (celsiusLink.classList.value === "active") {
-    nowTemp.innerHTML = rawCelsius;
+    currentTemp.innerHTML = rawCelsius;
   } else {
     convertFahrenheit();
   }
@@ -155,8 +155,8 @@ function updateTemperature(response) {
 // Update wind
 function updateWind(response) {
   let wind = Math.round((`${response.data.wind.speed}` * 3600) / 1000);
-  let nowWind = document.querySelector("#wind");
-  nowWind.innerHTML = wind;
+  let currentWind = document.querySelector("#wind");
+  currentWind.innerHTML = wind;
 }
 
 // Update icon
