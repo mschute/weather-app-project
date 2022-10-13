@@ -153,9 +153,6 @@ h6 {
   font-size: 16px;
 }
 
-.temperature-scales #celsius-link {
-  font-weight: 600;
-}
 .temperature-scales .celsius,
 .temperature-scales .fahrenheit {
   display: inline;
@@ -167,4 +164,8 @@ h6 {
   color: rgb(58, 129, 184);
   text-decoration: none;
   cursor: pointer;
+}
+
+.weather .active {
+  font-weight: 600;
 }

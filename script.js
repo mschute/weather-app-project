@@ -34,12 +34,13 @@ function convertCelsius() {
 function convertCelsiusStyle() {
   let celsius = document.querySelector("#celsius-link");
   let fahrenheit = document.querySelector("#fahrenheit-link");
-  celsius.style.fontWeight = "600";
-  fahrenheit.style.fontWeight = "300";
+  celsius.classList.add("active");
+  fahrenheit.classList.remove("active");
 }
 
 function convertFahrenheit() {
   let temperature = document.querySelector("#current-temp");
+
   temperature.innerHTML = Math.round(rawCelsius * (9 / 5) + 32);
   convertFahrenheitStyle();
 }
@@ -47,8 +48,8 @@ function convertFahrenheit() {
 function convertFahrenheitStyle() {
   let celsius = document.querySelector("#celsius-link");
   let fahrenheit = document.querySelector("#fahrenheit-link");
-  celsius.style.fontWeight = "300";
-  fahrenheit.style.fontWeight = "600";
+  celsius.classList.remove("active");
+  fahrenheit.classList.add("active");
 }
 
 document
@@ -148,9 +149,9 @@ function updateHumidity(response) {
 
 // Update temperature
 function updateTemperature(response) {
-  let temp = Math.round(`${response.data.main.temp}`);
+  rawCelsius = Math.round(`${response.data.main.temp}`);
   let nowTemp = document.querySelector("#current-temp");
-  nowTemp.innerHTML = temp;
+  nowTemp.innerHTML = rawCelsius;
 }
 
 // Update wind
