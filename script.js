@@ -26,12 +26,14 @@ updateDayAndTime();
 let rawCelsius = "20";
 let celsiusLink = document.querySelector("#celsius-link");
 let fahrenheitLink = document.querySelector("#fahrenheit-link");
+let rawKilometers = "76";
 
 function convertCelsius() {
   let temperature = document.querySelector("#current-temp");
   temperature.innerHTML = rawCelsius;
   celsiusLink.classList.add("active");
   fahrenheitLink.classList.remove("active");
+  convertKilometers();
 }
 
 function convertFahrenheit() {
@@ -39,6 +41,17 @@ function convertFahrenheit() {
   temperature.innerHTML = Math.round(rawCelsius * (9 / 5) + 32);
   celsiusLink.classList.remove("active");
   fahrenheitLink.classList.add("active");
+  convertMiles();
+}
+
+function convertMiles() {
+  wind.innerHTML = Math.round(rawKilometers / 1.609344);
+  speed.innerHTML = "mph";
+}
+
+function convertKilometers() {
+  wind.innerHTML = rawKilometers;
+  speed.innerHTML = "kph";
 }
 
 celsiusLink.addEventListener("click", convertCelsius);
@@ -146,9 +159,13 @@ function updateTemperature(response) {
 
 // Update wind
 function updateWind(response) {
-  let wind = Math.round((`${response.data.wind.speed}` * 3600) / 1000);
   let currentWind = document.querySelector("#wind");
-  currentWind.innerHTML = wind;
+  rawKilometers = Math.round(`${response.data.wind.speed}` * 3.6);
+  if (celsiusLink.classList.value === "active") {
+    currentWind.innerHTML = rawKilometers;
+  } else {
+    convertMiles();
+  }
 }
 
 // Update icon
