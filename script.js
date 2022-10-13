@@ -40,7 +40,6 @@ function convertCelsiusStyle() {
 
 function convertFahrenheit() {
   let temperature = document.querySelector("#current-temp");
-
   temperature.innerHTML = Math.round(rawCelsius * (9 / 5) + 32);
   convertFahrenheitStyle();
 }
@@ -143,9 +142,14 @@ function updateHumidity(response) {
 
 // Update temperature
 function updateTemperature(response) {
-  rawCelsius = Math.round(`${response.data.main.temp}`);
   let nowTemp = document.querySelector("#current-temp");
-  nowTemp.innerHTML = rawCelsius;
+  rawCelsius = Math.round(`${response.data.main.temp}`);
+
+  if (celsiusLink.classList.value === "active") {
+    nowTemp.innerHTML = rawCelsius;
+  } else {
+    convertFahrenheit();
+  }
 }
 
 // Update wind
