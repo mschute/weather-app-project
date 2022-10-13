@@ -50,12 +50,8 @@ function convertFahrenheitStyle() {
   fahrenheitLink.classList.add("active");
 }
 
-document
-  .querySelector("#celsius-link")
-  .addEventListener("click", convertCelsius);
-document
-  .querySelector("#fahrenheit-link")
-  .addEventListener("click", convertFahrenheit);
+celsiusLink.addEventListener("click", convertCelsius);
+fahrenheitLink.addEventListener("click", convertFahrenheit);
 
 // Get city with form
 let newCity = "";
