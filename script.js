@@ -141,7 +141,7 @@ function updateGeoName(response) {
 
 // Update humidity
 function updateHumidity(response) {
-  let humidity = Math.round(`${response.data.main.temp}`);
+  let humidity = Math.round(`${response.data.main.humidity}`);
   let nowHumidity = document.querySelector("#humidity");
   nowHumidity.innerHTML = humidity;
 }
