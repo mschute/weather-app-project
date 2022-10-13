@@ -24,42 +24,36 @@ updateDayAndTime();
 
 // Toggle Celsius and Fahrenheit
 let rawCelsius = "20";
+let temperature = document.querySelector("#current-temp");
+let celsius = document.querySelector("#celsius-link");
+let fahrenheit = document.querySelector("#fahrenheit-link");
 
 function convertCelsius() {
-  let temperature = document.querySelector("#current-temp");
   temperature.innerHTML = rawCelsius;
   convertCelsiusStyle();
 }
 
 function convertCelsiusStyle() {
-  let celcius = document.querySelector("#celsius-link");
-  let fahrenheit = document.querySelector("#fahrenheit-link");
-  celcius.style.fontWeight = "600";
+  celsius.style.fontWeight = "600";
   fahrenheit.style.fontWeight = "300";
 }
 
 function convertFahrenheit() {
-  let temperature = document.querySelector("#current-temp");
   temperature.innerHTML = Math.round(rawCelsius * (9 / 5) + 32);
   convertFahrenheitStyle();
 }
 
 function convertFahrenheitStyle() {
-  let celcius = document.querySelector("#celsius-link");
-  let fahrenheit = document.querySelector("#fahrenheit-link");
-  celcius.style.fontWeight = "300";
+  celsius.style.fontWeight = "300";
   fahrenheit.style.fontWeight = "600";
 }
 
-document
-  .querySelector("#celsius-link")
-  .addEventListener("click", convertCelsius);
-document
-  .querySelector("#fahrenheit-link")
-  .addEventListener("click", convertFahrenheit);
+celsius.addEventListener("click", convertCelsius);
+fahrenheit.addEventListener("click", convertFahrenheit);
 
 // Get city with form
 let newCity = "";
+let searchButton = document.querySelector(".search");
 
 function onSearchCity(event) {
   event.preventDefault();
@@ -67,11 +61,12 @@ function onSearchCity(event) {
   setWeatherApi();
 }
 
-document.querySelector(".search").addEventListener("submit", onSearchCity);
+searchButton.addEventListener("submit", onSearchCity);
 
 // Get Geolocation position
 let lat = "";
 let lon = "";
+let currentLocationButton = document.querySelector("#current-location-button");
 
 function onGeolocationButton() {
   navigator.geolocation.getCurrentPosition(getPosition);
@@ -83,9 +78,7 @@ function getPosition(position) {
   setGeoWeatherApi();
 }
 
-document
-  .querySelector("#current-location-button")
-  .addEventListener("click", onGeolocationButton);
+currentLocationButton.addEventListener("click", onGeolocationButton);
 
 // Set values for API
 let apiEndpoint = "https://api.openweathermap.org/data/2.5/weather?";
@@ -148,9 +141,9 @@ function updateHumidity(response) {
 
 // Update temperature
 function updateTemperature(response) {
-  let temperature = Math.round(`${response.data.main.temp}`);
+  let temp = Math.round(`${response.data.main.temp}`);
   let nowTemp = document.querySelector("#current-temp");
-  nowTemp.innerHTML = temperature;
+  nowTemp.innerHTML = temp;
 }
 
 // Update wind
