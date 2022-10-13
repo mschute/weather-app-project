@@ -30,10 +30,6 @@ let fahrenheitLink = document.querySelector("#fahrenheit-link");
 function convertCelsius() {
   let temperature = document.querySelector("#current-temp");
   temperature.innerHTML = rawCelsius;
-  convertCelsiusStyle();
-}
-
-function convertCelsiusStyle() {
   celsiusLink.classList.add("active");
   fahrenheitLink.classList.remove("active");
 }
@@ -41,10 +37,6 @@ function convertCelsiusStyle() {
 function convertFahrenheit() {
   let temperature = document.querySelector("#current-temp");
   temperature.innerHTML = Math.round(rawCelsius * (9 / 5) + 32);
-  convertFahrenheitStyle();
-}
-
-function convertFahrenheitStyle() {
   celsiusLink.classList.remove("active");
   fahrenheitLink.classList.add("active");
 }
