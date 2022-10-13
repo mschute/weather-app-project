@@ -24,32 +24,39 @@ updateDayAndTime();
 
 // Toggle Celsius and Fahrenheit
 let rawCelsius = "20";
-let temperature = document.querySelector("#current-temp");
-let celsius = document.querySelector("#celsius-link");
-let fahrenheit = document.querySelector("#fahrenheit-link");
 
 function convertCelsius() {
+  let temperature = document.querySelector("#current-temp");
   temperature.innerHTML = rawCelsius;
   convertCelsiusStyle();
 }
 
 function convertCelsiusStyle() {
+  let celsius = document.querySelector("#celsius-link");
+  let fahrenheit = document.querySelector("#fahrenheit-link");
   celsius.style.fontWeight = "600";
   fahrenheit.style.fontWeight = "300";
 }
 
 function convertFahrenheit() {
+  let temperature = document.querySelector("#current-temp");
   temperature.innerHTML = Math.round(rawCelsius * (9 / 5) + 32);
   convertFahrenheitStyle();
 }
 
 function convertFahrenheitStyle() {
+  let celsius = document.querySelector("#celsius-link");
+  let fahrenheit = document.querySelector("#fahrenheit-link");
   celsius.style.fontWeight = "300";
   fahrenheit.style.fontWeight = "600";
 }
 
-celsius.addEventListener("click", convertCelsius);
-fahrenheit.addEventListener("click", convertFahrenheit);
+document
+  .querySelector("#celsius-link")
+  .addEventListener("click", convertCelsius);
+document
+  .querySelector("#fahrenheit-link")
+  .addEventListener("click", convertFahrenheit);
 
 // Get city with form
 let newCity = "";
