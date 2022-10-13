@@ -24,6 +24,8 @@ updateDayAndTime();
 
 // Toggle Celsius and Fahrenheit
 let rawCelsius = "20";
+let celsiusLink = document.querySelector("#celsius-link");
+let fahrenheitLink = document.querySelector("#fahrenheit-link");
 
 function convertCelsius() {
   let temperature = document.querySelector("#current-temp");
@@ -32,10 +34,8 @@ function convertCelsius() {
 }
 
 function convertCelsiusStyle() {
-  let celsius = document.querySelector("#celsius-link");
-  let fahrenheit = document.querySelector("#fahrenheit-link");
-  celsius.classList.add("active");
-  fahrenheit.classList.remove("active");
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
 }
 
 function convertFahrenheit() {
@@ -46,10 +46,8 @@ function convertFahrenheit() {
 }
 
 function convertFahrenheitStyle() {
-  let celsius = document.querySelector("#celsius-link");
-  let fahrenheit = document.querySelector("#fahrenheit-link");
-  celsius.classList.remove("active");
-  fahrenheit.classList.add("active");
+  celsiusLink.classList.remove("active");
+  fahrenheitLink.classList.add("active");
 }
 
 document
