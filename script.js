@@ -107,7 +107,10 @@ function setWeatherApi() {
     alert("Error, please enter a city to continue");
   } else {
     let apiUrl = `${apiEndpoint}q=${newCity}&appid=${apiKey}&units=${unit}`;
-    axios.get(apiUrl).then(updateDisplays);
+    axios.get(apiUrl).then((response) => {
+      updateDisplays(response);
+      disableButtons(false);
+    });
   }
 }
 
@@ -126,7 +129,6 @@ function updateDisplays(response) {
   updateTemperature(response);
   updateWind(response);
   updateIcon(response);
-  disableButtons(false);
 }
 
 // Update city name
