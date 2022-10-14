@@ -36,6 +36,11 @@ h6 {
   cursor: pointer;
 }
 
+#current-location-button:disabled {
+  background-color: rgb(91, 106, 117);
+  cursor: none;
+}
+
 #current-location-tooltip {
   display: inline;
 }
@@ -137,6 +142,11 @@ h6 {
 .search-button:hover {
   background-color: rgb(37, 88, 126);
   cursor: pointer;
+}
+
+.search-button:disabled {
+  background-color: rgb(91, 106, 117);
+  cursor: none;
 }
 
 .search-city {

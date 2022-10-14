@@ -59,7 +59,8 @@ fahrenheitLink.addEventListener("click", convertFahrenheit);
 
 // Get city with form
 let newCity = "";
-let searchButton = document.querySelector(".search");
+let searchForm = document.querySelector(".search");
+let searchButton = document.querySelector(".search-button");
 
 function onSearchCity(event) {
   event.preventDefault();
@@ -67,7 +68,7 @@ function onSearchCity(event) {
   setWeatherApi();
 }
 
-searchButton.addEventListener("submit", onSearchCity);
+searchForm.addEventListener("submit", onSearchCity);
 
 // Get Geolocation position
 let lat = "";
@@ -75,13 +76,20 @@ let lon = "";
 let currentLocationButton = document.querySelector("#current-location-button");
 
 function onGeolocationButton() {
+  disableButtons(true);
   navigator.geolocation.getCurrentPosition(getPosition);
+}
+
+function disableButtons(disable) {
+  searchButton.disabled = disable;
+  currentLocationButton.disabled = disable;
 }
 
 function getPosition(position) {
   lat = position.coords.latitude;
   lon = position.coords.longitude;
   setGeoWeatherApi();
+  disableButtons(false);
 }
 
 currentLocationButton.addEventListener("click", onGeolocationButton);
@@ -94,6 +102,7 @@ let unit = "metric";
 
 // API for city
 function setWeatherApi() {
+  disableButtons(true);
   if (newCity === undefined || newCity.length < 1) {
     alert("Error, please enter a city to continue");
   } else {
@@ -117,6 +126,7 @@ function updateDisplays(response) {
   updateTemperature(response);
   updateWind(response);
   updateIcon(response);
+  disableButtons(false);
 }
 
 // Update city name
@@ -149,7 +159,6 @@ function updateHumidity(response) {
 function updateTemperature(response) {
   let currentTemp = document.querySelector("#current-temp");
   rawCelsius = Math.round(`${response.data.main.temp}`);
-
   if (celsiusLink.classList.value === "active") {
     currentTemp.innerHTML = rawCelsius;
   } else {
