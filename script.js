@@ -77,12 +77,8 @@ let currentLocationButton = document.querySelector("#current-location-button");
 
 function onGeolocationButton() {
   disableButtons(true);
+  setPlaceholderText("Searching...");
   navigator.geolocation.getCurrentPosition(getPosition);
-}
-
-function disableButtons(disable) {
-  searchButton.disabled = disable;
-  currentLocationButton.disabled = disable;
 }
 
 function getPosition(position) {
@@ -93,6 +89,17 @@ function getPosition(position) {
 }
 
 currentLocationButton.addEventListener("click", onGeolocationButton);
+
+// Actions during search
+
+function setPlaceholderText(text) {
+  document.getElementById("city").setAttribute("placeholder", text);
+}
+
+function disableButtons(disable) {
+  searchButton.disabled = disable;
+  currentLocationButton.disabled = disable;
+}
 
 // Set values for API
 let apiEndpoint = "https://api.openweathermap.org/data/2.5/weather?";
@@ -118,6 +125,7 @@ function setWeatherApi() {
 function setGeoWeatherApi() {
   let apiUrl = `${apiEndpoint}lat=${lat}&lon=${lon}&limit=${limit}&appid=${apiKey}&units=${unit}`;
   axios.get(apiUrl).then(updateDisplays);
+  setPlaceholderText("Enter a city...");
 }
 
 // Update visible data
