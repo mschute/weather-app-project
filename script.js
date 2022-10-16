@@ -112,6 +112,7 @@ function setWeatherApi() {
   disableButtons(true);
   if (newCity === undefined || newCity.length < 1) {
     alert("Error, please enter a city to continue");
+    disableButtons(false);
   } else {
     let apiUrl = `${apiEndpoint}q=${newCity}&appid=${apiKey}&units=${unit}`;
     axios.get(apiUrl).then((response) => {
