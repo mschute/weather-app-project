@@ -23,14 +23,16 @@ function updateDayAndTime() {
 updateDayAndTime();
 
 // Toggle Celsius and Fahrenheit
-let rawCelsius = "20";
+let rawCelsius = "–";
 let celsiusLink = document.querySelector("#celsius-link");
 let fahrenheitLink = document.querySelector("#fahrenheit-link");
-let rawKilometers = "76";
+let rawKilometers = "–";
 
 function convertCelsius() {
   let temperature = document.querySelector("#current-temp");
-  temperature.innerHTML = rawCelsius;
+  if (rawCelsius != "–") {
+    temperature.innerHTML = rawCelsius;
+  }
   celsiusLink.classList.add("active");
   fahrenheitLink.classList.remove("active");
   convertKilometers();
@@ -38,19 +40,25 @@ function convertCelsius() {
 
 function convertFahrenheit() {
   let temperature = document.querySelector("#current-temp");
-  temperature.innerHTML = Math.round(rawCelsius * (9 / 5) + 32);
+  if (rawCelsius != "–") {
+    temperature.innerHTML = Math.round(rawCelsius * (9 / 5) + 32);
+  }
   celsiusLink.classList.remove("active");
   fahrenheitLink.classList.add("active");
   convertMiles();
 }
 
 function convertMiles() {
-  wind.innerHTML = Math.round(rawKilometers / 1.609344);
+  if (rawKilometers != "–") {
+    wind.innerHTML = Math.round(rawKilometers / 1.609344);
+  }
   speed.innerHTML = "mph";
 }
 
 function convertKilometers() {
-  wind.innerHTML = rawKilometers;
+  if (rawKilometers != "–") {
+    wind.innerHTML = rawKilometers;
+  }
   speed.innerHTML = "kph";
 }
 
