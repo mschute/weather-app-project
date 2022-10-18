@@ -204,3 +204,35 @@ function updateIcon(response) {
     `weather-icons/${response.data.weather[0].main}.png`
   );
 }
+
+// Add 5 day forecast
+
+function displayForecast() {
+  let forecastContainer = document.querySelector("#forecast");
+  let forecastHTML = ``;
+  let i = 0;
+
+  while (i < 5) {
+    let forecastClass = i % 2 === 1 ? "even" : "odd";
+
+    forecastHTML += `<div class="col forecast-day ${forecastClass}">
+      <div class="day">Monday</div>
+      <div class="icon">☁️</div>
+      <div class="temp">
+        <span class="low">
+        17°
+        </span>
+        /
+        <span class="high">
+        21°
+        </span>
+      </div>
+    </div>`;
+
+    forecastContainer.innerHTML = forecastHTML;
+
+    i++;
+  }
+}
+
+displayForecast();
