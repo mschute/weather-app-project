@@ -92,7 +92,7 @@ function onGeolocationButton() {
 function getPosition(position) {
   lat = position.coords.latitude;
   lon = position.coords.longitude;
-  setGeoWeatherApi(response);
+  setGeoWeatherApi();
   disableButtons(false);
 }
 
@@ -132,7 +132,7 @@ function setWeatherApi() {
 
 // API for geolocation
 function setGeoWeatherApi() {
-  let apiUrl = `${apiEndpoint}lat=${lat}&lon=${lon}&limit=${limit}&appid=${apiKey}&units=${unit}`;
+  let apiUrl = `${apiEndpoint}lon=${lon}&lat=${lat}&key=${apiKey}&units=${unit}`;
   axios.get(apiUrl).then(updateDisplays);
   setPlaceholderText("Enter a city...");
 }
@@ -141,7 +141,6 @@ function setGeoWeatherApi() {
 function updateDisplays(response) {
   updateCity(response);
   updateDesc(response);
-  // updateGeoName(response);
   updateHumidity(response);
   updateTemperature(response);
   updateWind(response);
@@ -160,12 +159,6 @@ function updateDesc(response) {
   let currentWeatherDesc = document.querySelector("#current-weather-desc");
   currentWeatherDesc.innerHTML = weatherDesc;
 }
-
-// // Update geolocation name
-// function updateGeoName(response) {
-//   let currentCity = document.querySelector("#current-city");
-//   currentCity.innerHTML = `${response.data.city}`;
-// }
 
 // Update humidity
 function updateHumidity(response) {
