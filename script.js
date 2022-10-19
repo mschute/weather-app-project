@@ -92,7 +92,7 @@ function onGeolocationButton() {
 function getPosition(position) {
   lat = position.coords.latitude;
   lon = position.coords.longitude;
-  setGeoWeatherApi();
+  setGeoWeatherApi(response);
   disableButtons(false);
 }
 
@@ -110,8 +110,8 @@ function disableButtons(disable) {
 }
 
 // Set values for API
-let apiEndpoint = "https://api.openweathermap.org/data/2.5/weather?";
-let apiKey = "894a2e7aa7f46eeca5d8778f6faa5a5b";
+let apiEndpoint = "https://api.shecodes.io/weather/v1/current?";
+let apiKey = "f4ff5751e00t63c15a8eb8eo1612abfe";
 let limit = 1;
 let unit = "metric";
 
@@ -122,7 +122,7 @@ function setWeatherApi() {
     alert("Error, please enter a city to continue");
     disableButtons(false);
   } else {
-    let apiUrl = `${apiEndpoint}q=${newCity}&appid=${apiKey}&units=${unit}`;
+    let apiUrl = `${apiEndpoint}query=${newCity}&key=${apiKey}&units=${unit}`;
     axios.get(apiUrl).then((response) => {
       updateDisplays(response);
       disableButtons(false);
@@ -139,9 +139,9 @@ function setGeoWeatherApi() {
 
 // Update visible data
 function updateDisplays(response) {
-  updateCity();
+  updateCity(response);
   updateDesc(response);
-  updateGeoName(response);
+  // updateGeoName(response);
   updateHumidity(response);
   updateTemperature(response);
   updateWind(response);
@@ -149,27 +149,27 @@ function updateDisplays(response) {
 }
 
 // Update city name
-function updateCity() {
+function updateCity(response) {
   let currentCity = document.querySelector("#current-city");
-  currentCity.innerHTML = `${city.value.trim()}`;
+  currentCity.innerHTML = `${response.data.city}`;
 }
 
 // Update description
 function updateDesc(response) {
-  let weatherDesc = `${response.data.weather[0].description}`;
+  let weatherDesc = `${response.data.condition.description}`;
   let currentWeatherDesc = document.querySelector("#current-weather-desc");
   currentWeatherDesc.innerHTML = weatherDesc;
 }
 
-// Update geolocation name
-function updateGeoName(response) {
-  let currentCity = document.querySelector("#current-city");
-  currentCity.innerHTML = `${response.data.name}`;
-}
+// // Update geolocation name
+// function updateGeoName(response) {
+//   let currentCity = document.querySelector("#current-city");
+//   currentCity.innerHTML = `${response.data.city}`;
+// }
 
 // Update humidity
 function updateHumidity(response) {
-  let humidity = Math.round(`${response.data.main.humidity}`);
+  let humidity = Math.round(`${response.data.temperature.humidity}`);
   let currentHumidity = document.querySelector("#humidity");
   currentHumidity.innerHTML = humidity;
 }
@@ -177,7 +177,7 @@ function updateHumidity(response) {
 // Update temperature
 function updateTemperature(response) {
   let currentTemp = document.querySelector("#current-temp");
-  rawCelsius = Math.round(`${response.data.main.temp}`);
+  rawCelsius = Math.round(`${response.data.temperature.current}`);
   if (celsiusLink.classList.value === "active") {
     currentTemp.innerHTML = rawCelsius;
   } else {
@@ -199,10 +199,7 @@ function updateWind(response) {
 // Update icon
 function updateIcon(response) {
   let currentIcon = document.querySelector("#current-icon");
-  currentIcon.setAttribute(
-    "src",
-    `weather-icons/${response.data.weather[0].main}.png`
-  );
+  currentIcon.setAttribute("src", `${response.data.condition.icon_url}`);
 }
 
 // Add 5 day forecast
