@@ -112,7 +112,6 @@ function disableButtons(disable) {
 // Set values for API
 let apiEndpoint = "https://api.shecodes.io/weather/v1/current?";
 let apiKey = "f4ff5751e00t63c15a8eb8eo1612abfe";
-let limit = 1;
 let unit = "metric";
 
 // API for city
@@ -200,21 +199,21 @@ function updateIcon(response) {
 function displayForecast() {
   let forecastContainer = document.querySelector("#forecast");
   let forecastHTML = ``;
-  let i = 0;
+  let i = 1;
 
-  while (i < 5) {
-    let forecastClass = i % 2 === 1 ? "even" : "odd";
+  while (i <= 5) {
+    let forecastClass = i % 2 === 0 ? "even" : "odd";
 
     forecastHTML += `<div class="col forecast-day ${forecastClass}">
-      <div class="day">Monday</div>
-      <div class="icon">☁️</div>
+      <div class="day">${day[(currentDay + i) % 7]}</div>
+      <div class="icon">–</div>
       <div class="temp">
         <span class="low">
-        17°
+        –°
         </span>
         /
         <span class="high">
-        21°
+        –°
         </span>
       </div>
     </div>`;
