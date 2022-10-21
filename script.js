@@ -27,8 +27,8 @@ let rawCelsius = "–";
 let celsiusLink = document.querySelector("#celsius-link");
 let fahrenheitLink = document.querySelector("#fahrenheit-link");
 let rawKilometers = "–";
-let rawCelsiusLowForecast = ["-", "-", "-", "-", "-"];
-let rawCelsiusHighForecast = ["-", "-", "-", "-", "-"];
+let rawCelsiusLowForecast = ["–", "–", "–", "–", "–"];
+let rawCelsiusHighForecast = ["–", "–", "–", "–", "–"];
 
 function convertCelsius() {
   let temperature = document.querySelector("#current-temp");
@@ -68,9 +68,11 @@ function convertForecastLowFahrenheit() {
   let i = 0;
   while (i < 5) {
     let forecastLowTemp = document.querySelector(`#forecast-day-${[i]}-low`);
-    forecastLowTemp.innerHTML = Math.round(
-      forecastLowTemp.innerHTML * (9 / 5) + 32
-    );
+    if (rawCelsiusLowForecast[i] != "–") {
+      forecastLowTemp.innerHTML = Math.round(
+        rawCelsiusLowForecast[i] * (9 / 5) + 32
+      );
+    }
     i++;
   }
 }
@@ -79,9 +81,11 @@ function convertForecastHighFahrenheit() {
   let i = 0;
   while (i < 5) {
     let forecastHighTemp = document.querySelector(`#forecast-day-${[i]}-high`);
-    forecastHighTemp.innerHTML = Math.round(
-      forecastHighTemp.innerHTML * (9 / 5) + 32
-    );
+    if (rawCelsiusHighForecast[i] != "–") {
+      forecastHighTemp.innerHTML = Math.round(
+        rawCelsiusHighForecast[i] * (9 / 5) + 32
+      );
+    }
     i++;
   }
 }
@@ -202,7 +206,6 @@ function setGeoWeatherForecastApi() {
   let apiUrl = `${forecastWeatherApiEndpoint}lon=${lon}&lat=${lat}&key=${apiKey}&units=${unit}`;
   axios.get(apiUrl).then((response) => {
     updateForecastDisplays(response);
-    console.log(apiUrl);
   });
 }
 
@@ -305,7 +308,6 @@ function updateForecastDisplays(response) {
 //Update forecast icons
 function updateForecastIcons(response) {
   let i = 0;
-
   while (i < 5) {
     let forecastIcon = document.querySelector(`#forecast-day-${[i]}-icon`);
     forecastIcon.innerHTML = "";
