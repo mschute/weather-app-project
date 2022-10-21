@@ -27,6 +27,8 @@ let rawCelsius = "–";
 let celsiusLink = document.querySelector("#celsius-link");
 let fahrenheitLink = document.querySelector("#fahrenheit-link");
 let rawKilometers = "–";
+let rawCelsiusLowForecast = ["-", "-", "-", "-", "-"];
+let rawCelsiusHighForecast = ["-", "-", "-", "-", "-"];
 
 function convertCelsius() {
   let temperature = document.querySelector("#current-temp");
@@ -36,6 +38,52 @@ function convertCelsius() {
   celsiusLink.classList.add("active");
   fahrenheitLink.classList.remove("active");
   convertKilometers();
+  convertForecastLowCelsius();
+  convertForecastHighCelsius();
+}
+
+function convertForecastLowCelsius() {
+  let i = 0;
+  while (i < 5) {
+    let forecastLowTemp = document.querySelector(`#forecast-day-${[i]}-low`);
+    if (rawCelsiusLowForecast[i] != "–") {
+      forecastLowTemp.innerHTML = rawCelsiusLowForecast[i];
+    }
+    i++;
+  }
+}
+
+function convertForecastHighCelsius() {
+  let i = 0;
+  while (i < 5) {
+    let forecastHighTemp = document.querySelector(`#forecast-day-${[i]}-high`);
+    if (rawCelsiusHighForecast[i] != "–") {
+      forecastHighTemp.innerHTML = rawCelsiusHighForecast[i];
+    }
+    i++;
+  }
+}
+
+function convertForecastLowFahrenheit() {
+  let i = 0;
+  while (i < 5) {
+    let forecastLowTemp = document.querySelector(`#forecast-day-${[i]}-low`);
+    forecastLowTemp.innerHTML = Math.round(
+      forecastLowTemp.innerHTML * (9 / 5) + 32
+    );
+    i++;
+  }
+}
+
+function convertForecastHighFahrenheit() {
+  let i = 0;
+  while (i < 5) {
+    let forecastHighTemp = document.querySelector(`#forecast-day-${[i]}-high`);
+    forecastHighTemp.innerHTML = Math.round(
+      forecastHighTemp.innerHTML * (9 / 5) + 32
+    );
+    i++;
+  }
 }
 
 function convertFahrenheit() {
@@ -46,6 +94,8 @@ function convertFahrenheit() {
   celsiusLink.classList.remove("active");
   fahrenheitLink.classList.add("active");
   convertMiles();
+  convertForecastLowFahrenheit();
+  convertForecastHighFahrenheit();
 }
 
 function convertMiles() {
@@ -229,17 +279,16 @@ function displayForecast() {
       <div class="icon" id="forecast-day-${[i] - 1}-icon">–</div>
       <div class="temp">
         <span class="low" id="forecast-day-${[i] - 1}-low">
-        –°
+        –</span><span class="low">°</span>
         </span>
         /
         <span class="high" id="forecast-day-${[i] - 1}-high">
-        –°
+        –</span><span class="high">°</span>
         </span>
       </div>
     </div>`;
 
     forecastContainer.innerHTML = forecastHtml;
-
     i++;
   }
 }
@@ -270,9 +319,14 @@ function updateForecastLowTemp(response) {
   let i = 0;
   while (i < 5) {
     let forecastLowTemp = document.querySelector(`#forecast-day-${[i]}-low`);
-    forecastLowTemp.innerHTML = "";
-    forecastLowTemp.innerHTML =
-      Math.round(`${response.data.daily[i].temperature.minimum}`) + "°";
+    rawCelsiusLowForecast[i] = Math.round(
+      `${response.data.daily[i].temperature.minimum}`
+    );
+    if (celsiusLink.classList.value === "active") {
+      forecastLowTemp.innerHTML = rawCelsiusLowForecast[i];
+    } else {
+      convertForecastLowFahrenheit();
+    }
     i++;
   }
 }
@@ -282,9 +336,14 @@ function updateForecastHighTemp(response) {
   let i = 0;
   while (i < 5) {
     let forecastHighTemp = document.querySelector(`#forecast-day-${[i]}-high`);
-    forecastHighTemp.innerHTML = "";
-    forecastHighTemp.innerHTML =
-      Math.round(`${response.data.daily[i].temperature.maximum}`) + "°";
+    rawCelsiusHighForecast[i] = Math.round(
+      `${response.data.daily[i].temperature.maximum}`
+    );
+    if (celsiusLink.classList.value === "active") {
+      forecastHighTemp.innerHTML = rawCelsiusHighForecast[i];
+    } else {
+      convertForecastHighFahrenheit();
+    }
     i++;
   }
 }
