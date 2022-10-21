@@ -73,6 +73,7 @@ let searchButton = document.querySelector(".search-button");
 function onSearchCity(event) {
   event.preventDefault();
   newCity = `${city.value.trim()}`;
+  searchForm.city.value = "";
   setWeatherApi();
   setWeatherForecastApi();
 }
@@ -151,6 +152,7 @@ function setGeoWeatherForecastApi() {
   let apiUrl = `${forecastWeatherApiEndpoint}lon=${lon}&lat=${lat}&key=${apiKey}&units=${unit}`;
   axios.get(apiUrl).then((response) => {
     updateForecastDisplays(response);
+    console.log(apiUrl);
   });
 }
 
@@ -167,7 +169,8 @@ function updateDisplays(response) {
 // Update city name
 function updateCity(response) {
   let currentCity = document.querySelector("#current-city");
-  currentCity.innerHTML = `${response.data.city}`;
+  currentCity.innerHTML =
+    `${response.data.city}, ` + `${response.data.country}`;
 }
 
 // Update description
