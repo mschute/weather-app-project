@@ -23,16 +23,16 @@ function updateDayAndTime() {
 updateDayAndTime();
 
 // Toggle Celsius and Fahrenheit
-let rawCelsius = "–";
 let celsiusLink = document.querySelector("#celsius-link");
 let fahrenheitLink = document.querySelector("#fahrenheit-link");
-let rawKilometers = "–";
-let rawCelsiusLowForecast = ["–", "–", "–", "–", "–"];
-let rawCelsiusHighForecast = ["–", "–", "–", "–", "–"];
+let rawCelsius = "";
+let rawKilometers = "";
+let rawCelsiusLowForecast = ["", "", "", "", ""];
+let rawCelsiusHighForecast = ["", "", "", "", ""];
 
 function convertCelsius() {
   let temperature = document.querySelector("#current-temp");
-  if (rawCelsius != "–") {
+  if (rawCelsius != "") {
     temperature.innerHTML = rawCelsius;
   }
   celsiusLink.classList.add("active");
@@ -42,57 +42,34 @@ function convertCelsius() {
   convertForecastHighCelsius();
 }
 
+function convertKilometers() {
+  if (rawKilometers != "") {
+    wind.innerHTML = rawKilometers;
+  }
+  speed.innerHTML = "kph";
+}
+
 function convertForecastLowCelsius() {
-  let i = 0;
-  while (i < 5) {
+  for (let i = 0; i < 5; i++) {
     let forecastLowTemp = document.querySelector(`#forecast-day-${[i]}-low`);
-    if (rawCelsiusLowForecast[i] != "–") {
+    if (rawCelsiusLowForecast[i] != "") {
       forecastLowTemp.innerHTML = rawCelsiusLowForecast[i];
     }
-    i++;
   }
 }
 
 function convertForecastHighCelsius() {
-  let i = 0;
-  while (i < 5) {
+  for (let i = 0; i < 5; i++) {
     let forecastHighTemp = document.querySelector(`#forecast-day-${[i]}-high`);
-    if (rawCelsiusHighForecast[i] != "–") {
+    if (rawCelsiusHighForecast[i] != "") {
       forecastHighTemp.innerHTML = rawCelsiusHighForecast[i];
     }
-    i++;
-  }
-}
-
-function convertForecastLowFahrenheit() {
-  let i = 0;
-  while (i < 5) {
-    let forecastLowTemp = document.querySelector(`#forecast-day-${[i]}-low`);
-    if (rawCelsiusLowForecast[i] != "–") {
-      forecastLowTemp.innerHTML = Math.round(
-        rawCelsiusLowForecast[i] * (9 / 5) + 32
-      );
-    }
-    i++;
-  }
-}
-
-function convertForecastHighFahrenheit() {
-  let i = 0;
-  while (i < 5) {
-    let forecastHighTemp = document.querySelector(`#forecast-day-${[i]}-high`);
-    if (rawCelsiusHighForecast[i] != "–") {
-      forecastHighTemp.innerHTML = Math.round(
-        rawCelsiusHighForecast[i] * (9 / 5) + 32
-      );
-    }
-    i++;
   }
 }
 
 function convertFahrenheit() {
   let temperature = document.querySelector("#current-temp");
-  if (rawCelsius != "–") {
+  if (rawCelsius != "") {
     temperature.innerHTML = Math.round(rawCelsius * (9 / 5) + 32);
   }
   celsiusLink.classList.remove("active");
@@ -103,17 +80,32 @@ function convertFahrenheit() {
 }
 
 function convertMiles() {
-  if (rawKilometers != "–") {
+  if (rawKilometers != "") {
     wind.innerHTML = Math.round(rawKilometers / 1.609344);
   }
   speed.innerHTML = "mph";
 }
 
-function convertKilometers() {
-  if (rawKilometers != "–") {
-    wind.innerHTML = rawKilometers;
+function convertForecastLowFahrenheit() {
+  for (let i = 0; i < 5; i++) {
+    let forecastLowTemp = document.querySelector(`#forecast-day-${[i]}-low`);
+    if (rawCelsiusLowForecast[i] != "") {
+      forecastLowTemp.innerHTML = Math.round(
+        rawCelsiusLowForecast[i] * (9 / 5) + 32
+      );
+    }
   }
-  speed.innerHTML = "kph";
+}
+
+function convertForecastHighFahrenheit() {
+  for (let i = 0; i < 5; i++) {
+    let forecastHighTemp = document.querySelector(`#forecast-day-${[i]}-high`);
+    if (rawCelsiusHighForecast[i] != "") {
+      forecastHighTemp.innerHTML = Math.round(
+        rawCelsiusHighForecast[i] * (9 / 5) + 32
+      );
+    }
+  }
 }
 
 celsiusLink.addEventListener("click", convertCelsius);
@@ -121,7 +113,7 @@ fahrenheitLink.addEventListener("click", convertFahrenheit);
 
 // Get city with form
 let newCity = "";
-let searchForm = document.querySelector(".search");
+let searchForm = document.querySelector("#search-field");
 let searchButton = document.querySelector(".search-button");
 
 function onSearchCity(event) {
@@ -134,38 +126,7 @@ function onSearchCity(event) {
 
 searchForm.addEventListener("submit", onSearchCity);
 
-// Get Geolocation position
-let lat = "";
-let lon = "";
-let currentLocationButton = document.querySelector("#current-location-button");
-
-function onGeolocationButton() {
-  disableButtons(true);
-  setPlaceholderText("Searching...");
-  navigator.geolocation.getCurrentPosition(getPosition);
-}
-
-function getPosition(position) {
-  lat = position.coords.latitude;
-  lon = position.coords.longitude;
-  setGeoWeatherApi();
-  setGeoWeatherForecastApi();
-  disableButtons(false);
-}
-
-currentLocationButton.addEventListener("click", onGeolocationButton);
-
-// Actions during search
-function setPlaceholderText(text) {
-  document.getElementById("city").setAttribute("placeholder", text);
-}
-
-function disableButtons(disable) {
-  searchButton.disabled = disable;
-  currentLocationButton.disabled = disable;
-}
-
-// Set values for current weather API
+// Set values for weather API
 let currentWeatherApiEndpoint = "https://api.shecodes.io/weather/v1/current?";
 let forecastWeatherApiEndpoint = "https://api.shecodes.io/weather/v1/forecast?";
 let apiKey = "f4ff5751e00t63c15a8eb8eo1612abfe";
@@ -186,14 +147,7 @@ function setWeatherApi() {
   }
 }
 
-// API for current weather geolocation
-function setGeoWeatherApi() {
-  let apiUrl = `${currentWeatherApiEndpoint}lon=${lon}&lat=${lat}&key=${apiKey}&units=${unit}`;
-  axios.get(apiUrl).then(updateDisplays);
-  setPlaceholderText("Enter a city...");
-}
-
-// API for search forecast
+// API for forecast city search
 function setWeatherForecastApi() {
   let apiUrl = `${forecastWeatherApiEndpoint}query=${newCity}&key=${apiKey}&units=${unit}`;
   axios.get(apiUrl).then((response) => {
@@ -201,7 +155,45 @@ function setWeatherForecastApi() {
   });
 }
 
-// API for geolocation forecast
+// Get Geolocation position with button
+let lat = "";
+let lon = "";
+let currentLocationButton = document.querySelector("#current-location-button");
+
+function onGeolocationButton() {
+  disableButtons(true);
+  setPlaceholderText("Searching...");
+  navigator.geolocation.getCurrentPosition(getPosition);
+}
+
+function getPosition(position) {
+  lat = position.coords.latitude;
+  lon = position.coords.longitude;
+  setGeoWeatherApi();
+  setGeoWeatherForecastApi();
+  disableButtons(false);
+}
+
+currentLocationButton.addEventListener("click", onGeolocationButton);
+
+// Supplementary actions during search
+function setPlaceholderText(text) {
+  document.getElementById("city").setAttribute("placeholder", text);
+}
+
+function disableButtons(disable) {
+  searchButton.disabled = disable;
+  currentLocationButton.disabled = disable;
+}
+
+// API for current weather geolocation
+function setGeoWeatherApi() {
+  let apiUrl = `${currentWeatherApiEndpoint}lon=${lon}&lat=${lat}&key=${apiKey}&units=${unit}`;
+  axios.get(apiUrl).then(updateDisplays);
+  setPlaceholderText("Enter a city...");
+}
+
+// API for forecast geolocation
 function setGeoWeatherForecastApi() {
   let apiUrl = `${forecastWeatherApiEndpoint}lon=${lon}&lat=${lat}&key=${apiKey}&units=${unit}`;
   axios.get(apiUrl).then((response) => {
@@ -272,9 +264,8 @@ function updateIcon(response) {
 function displayForecast() {
   let forecastContainer = document.querySelector("#forecast");
   let forecastHtml = ``;
-  let i = 1;
 
-  while (i <= 5) {
+  for (let i = 1; i <= 5; i++) {
     let forecastClass = i % 2 === 0 ? "even" : "odd";
 
     forecastHtml += `<div class="col forecast-day ${forecastClass}">
@@ -292,7 +283,6 @@ function displayForecast() {
     </div>`;
 
     forecastContainer.innerHTML = forecastHtml;
-    i++;
   }
 }
 
@@ -307,19 +297,16 @@ function updateForecastDisplays(response) {
 
 //Update forecast icons
 function updateForecastIcons(response) {
-  let i = 0;
-  while (i < 5) {
+  for (let i = 0; i < 5; i++) {
     let forecastIcon = document.querySelector(`#forecast-day-${[i]}-icon`);
     forecastIcon.innerHTML = "";
     forecastIcon.innerHTML += `<img src="${response.data.daily[i].condition.icon_url}" />`;
-    i++;
   }
 }
 
 //Update forecast low temperature
 function updateForecastLowTemp(response) {
-  let i = 0;
-  while (i < 5) {
+  for (let i = 0; i < 5; i++) {
     let forecastLowTemp = document.querySelector(`#forecast-day-${[i]}-low`);
     rawCelsiusLowForecast[i] = Math.round(
       `${response.data.daily[i].temperature.minimum}`
@@ -329,14 +316,12 @@ function updateForecastLowTemp(response) {
     } else {
       convertForecastLowFahrenheit();
     }
-    i++;
   }
 }
 
 //Update forecast high temperature
 function updateForecastHighTemp(response) {
-  let i = 0;
-  while (i < 5) {
+  for (let i = 0; i < 5; i++) {
     let forecastHighTemp = document.querySelector(`#forecast-day-${[i]}-high`);
     rawCelsiusHighForecast[i] = Math.round(
       `${response.data.daily[i].temperature.maximum}`
@@ -346,6 +331,5 @@ function updateForecastHighTemp(response) {
     } else {
       convertForecastHighFahrenheit();
     }
-    i++;
   }
 }
