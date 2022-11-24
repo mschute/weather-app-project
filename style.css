@@ -69,6 +69,17 @@
   text-transform: capitalize;
 }
 
+.developer-link {
+  text-decoration: none;
+  color: black;
+}
+
+.developer-link:focus,
+.developer-link:hover {
+  color: black;
+  font-weight: 500;
+}
+
 .even {
   background-color: rgba(150, 150, 150, 0.1);
 }
